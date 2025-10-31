@@ -1,0 +1,48 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "======= Pour la prod =======": "========================",
+    "build": "tsc",
+    "start": "node --env-file=.env dist/index.js",
+    "docker:start": "npm run db:migrate:deploy && node dist/index.js",
+    "======= Pour le dev ========": "========================",
+    "dev": "node --watch --env-file=.env index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "======= Pour la BDD ========": "========================",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:reset": "prisma migrate reset --force",
+    "db:generate": "prisma generate",
+    "db:seed": "node --env-file=.env ./src/models/seeding.ts",
+    "db:reset": "npm run db:migrate:reset && npm run db:seed",
+    "db:studio": "prisma studio",
+    "======= Pour les tests =======": "========================",
+    "test:unit": "node --test ./**/*.unit.test.ts",
+    "test:spec": "node --test --env-file=./test/config/.env.test --import ./test/config/global-setup.ts --experimental-test-isolation=none ./**/*.spec.test.ts",
+    "test:spec:coverage": "node --test --env-file=./test/config/.env.test --import ./test/config/global-setup.ts --experimental-test-isolation=none --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info --test-coverage-exclude=prisma/**/*.ts --test-coverage-exclude=test/**/*.ts ./**/*.spec.test.ts && genhtml test/lcov.info -o test/report && open test/report/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^6.18.0",
+    "argon2": "^0.44.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.9.2",
+    "prisma": "^6.17.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.1"
+  }
+}

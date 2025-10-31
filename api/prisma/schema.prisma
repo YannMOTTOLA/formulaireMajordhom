@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Topic {
+  VISIT
+  CALLBACK
+  PICTURES
+}
+
+enum Days {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid(7))
+  gender    Gender   
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  createdAt DateTime @default(now())
+  messages       Message[]
+  availabilities Availability[]
+}
+
+model Message {
+  id        String   @id @default(uuid(7))
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  topic     Topic?    @default(VISIT)
+  message   String?   @db.Text @default("")
+  createdAt DateTime @default(now())
+}
+
+model Availability {
+  id        String   @id @default(uuid(7))
+  day       Days     @default(MONDAY)
+  hour     Int
+  minute   Int
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime @default(now())
+}
