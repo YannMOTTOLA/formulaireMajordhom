@@ -1,10 +1,8 @@
-# Comment lancer ce fichier ?
-# docker compose -p majordhom -f docker-compose.yml up -d
-# docker compose -p majordhom -f docker-compose.yml --env-file .env.docker up -d
+# Lancer : docker compose -p majordhom --env-file .env.docker up -d
 
 services:
   database:
-    image: postgres:18
+    image: postgres:16
     restart: unless-stopped
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
@@ -12,16 +10,15 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 1m30s
-      timeout: 30s
+      interval: 10s
+      timeout: 5s
       retries: 5
-      start_period: 30s
     networks:
       - majordhom-network
     volumes:
       - majordhom-volume:/var/lib/postgresql/data
     ports:
-      - ${DATABASE_PORT}:5432
+      - "${DATABASE_PORT}:5432"
 
   api:
     build:
@@ -29,62 +26,35 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}?schema=public
+      - ALLOWED_ORIGINS=http://localhost:${CLIENT_PORT}
+      - NODE_ENV=production
     networks:
       - majordhom-network
     ports:
-      - ${API_PORT}:3000
+      - "${API_PORT}:3000"
     depends_on:
       database:
         condition: service_healthy
 
-
-  # client:
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - VITE_API_BASE_URL=${VITE_API_BASE_URL}
-  #   restart: unless-stopped
-  #   networks:
-  #     - majordhom-network
-  #   ports:
-  #     - ${CLIENT_PORT}:80
-  #   depends_on:
-  #     - api
-
-  # Bonus : un service en plus pour visualiser notre BDD (GUI)
-  # adminer:
-  #   image: adminer:5
-  #   restart: unless-stopped
-  #   ports:
-  #     - ${ADMINER_PORT}:8080
-  #   networks:
-  #     - majordhom-network
-  #   depends_on:
-  #     - database
-
-  # proxy:
-  #   image: nginx:alpine
-  #   restart: unless-stopped
-  #   ports:
-  #     - 80:80
-  #   volumes:
-  #     - ./proxy-service/nginx.conf:/etc/nginx/conf.d/default.conf
-  #   depends_on:
-  #     - api
-  #     - client
-  #     - adminer
-  #   networks:
-  #     - majordhom-network
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:${API_PORT}
+    restart: unless-stopped
+    ports:
+      - "${CLIENT_PORT}:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - api
+    networks:
+      - majordhom-network
 
 volumes:
   majordhom-volume:
-  # Problématique : nos données PostgreSQL sont stockées dans le conteneur, donc lorsque le conteneur est supprimé on perd les données
-  # Solution : on va créer un volume (dossier sur l'hôte, géré par Docker) que l'on va MONTER (-v) dans le conteneur Postgres afin de persister les données même si le conteneur est supprimé
 
 networks:
   majordhom-network:
-  # Note : pas besoin de créer un network en réalité, le fait d'utiliser un docker-compose créé un network pour nous.
-  # Mais autant être explicite pour bien comprendre le principe : deux conteneurs ne peuvent communiquer que s'ils sont sur le même réseau

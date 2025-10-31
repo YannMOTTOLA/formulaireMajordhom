@@ -11,7 +11,7 @@ POST {{baseUrl}}/contact/submit
 Content-Type: application/json
 
 {
-  "gender": "FEMALE",
+  "gender": "",
   "firstName": "Lucy",
   "lastName": "MOTTOLA",
   "email": "example@example.com",

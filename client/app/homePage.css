@@ -7,7 +7,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  min-height: 100vh;
 }
 
 .form-container {
@@ -16,8 +16,8 @@ body, html {
   color: white;
   font-family: "Arial", sans-serif;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  width: 80vw;
-  height: 70vh;
+  width: 95vw;
+  min-height: 85vh;
   display: block;
 }
 
@@ -25,19 +25,19 @@ body, html {
   border-radius: 20px;
   padding: 4vh 5vw;
   background: rgba(0, 0, 0, 0.3);
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .contact-form h2 {
-  font-size: 28px;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
 .form-columns {
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .left-column,
@@ -50,6 +50,7 @@ body, html {
 
 .inline-fields {
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -62,6 +63,7 @@ textarea {
   border: none;
   font-size: 14px;
   color: #333;
+  background-color: white;
 }
 
 textarea {
@@ -71,6 +73,7 @@ textarea {
 
 .radio-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   font-size: 14px;
 }
@@ -79,6 +82,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: nowrap;
 }
 
 .add-btn {
@@ -88,17 +92,7 @@ textarea {
   border-radius: 20px;
   padding: 8px 16px;
   cursor: pointer;
-}
-
-.submit-btn {
-  background: #ff9800;
-  border: none;
-  color: white;
-  border-radius: 20px;
-  font-weight: bold;
-  padding: 12px 40px;
-  cursor: pointer;
-  align-self: flex-end;
+  white-space: nowrap;
 }
 
 .availability-list {
@@ -117,7 +111,8 @@ textarea {
   font-size: 14px;
   color: #fff;
   white-space: nowrap;
-  width: 8vw;
+  width: auto;
+  max-width: 100%;
 }
 
 .remove-btn {
@@ -133,6 +128,37 @@ textarea {
 
 .remove-btn:hover {
   color: #ff5555;
+}
+
+.submit-btn {
+  background: #ff9800;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 12px 40px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.phone-input {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.country-code-select {
+  width: 90px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.phone-input input {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .success {
@@ -163,3 +189,73 @@ h3 {
   padding-bottom: 3%;
 }
 
+/* --- Tablette --- */
+@media (max-width: 1023px) {
+  .form-container {
+    width: 90vw;
+    height: auto;
+    min-height: 80vh;
+  }
+
+  .contact-form {
+    padding: 5vh 6vw;
+  }
+
+  .form-columns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .left-column,
+  .right-column {
+    flex: 1 1 100%;
+  }
+
+  .availability-group {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .availability-item {
+    width: auto;
+    min-width: 180px;
+  }
+
+  .submit-btn {
+    align-self: center;
+    width: fit-content;
+  }
+}
+
+/* --- Desktop --- */
+@media (min-width: 1024px) {
+  .form-container {
+    width: 80vw;
+    height: 70vh;
+  }
+
+  .contact-form h2 {
+    font-size: 28px;
+  }
+
+  .form-columns {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .inline-fields {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .availability-group {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .availability-item {
+    width: 20vw;
+  }
+}
