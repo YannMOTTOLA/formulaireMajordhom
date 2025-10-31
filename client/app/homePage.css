@@ -1,0 +1,165 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.form-container {
+  background: url("/salon.png") center/cover no-repeat;
+  border-radius: 20px;
+  color: white;
+  font-family: "Arial", sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 80vw;
+  height: 70vh;
+  display: block;
+}
+
+.contact-form {
+  border-radius: 20px;
+  padding: 4vh 5vw;
+  background: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+}
+
+.contact-form h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.form-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inline-fields {
+  display: flex;
+  gap: 10px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 20px;
+  border: none;
+  font-size: 14px;
+  color: #333;
+}
+
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.availability-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-btn {
+  background: #5b1d99;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background: #ff9800;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 12px 40px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.availability-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.availability-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: #fff;
+  white-space: nowrap;
+  width: 8vw;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.remove-btn:hover {
+  color: #ff5555;
+}
+
+.success {
+  color: #3aff6b;
+  margin-top: 10px;
+}
+
+.error {
+  color: #ff3b3b;
+  margin-top: 10px;
+}
+
+input, textarea, select {
+  background-color: white;
+}
+
+.labelTopic, .labelGender {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 115%;
+  gap: 1vw;
+}
+
+h3 {
+  font-weight: bold;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
