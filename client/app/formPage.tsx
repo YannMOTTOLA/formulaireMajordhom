@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import "./form.css";
 
 export default function FormPage() {
@@ -18,6 +19,7 @@ export default function FormPage() {
   const [availabilities, setAvailabilities] = useState<{ day: string; hour: number; minute: number }[]>([]);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const addAvailability = () => {
     if (day && hour !== "" && minute !== "") {
@@ -52,7 +54,8 @@ export default function FormPage() {
           phone: fullPhone,
           message,
           topic,
-          availabilities
+          availabilities,
+          captchaToken
         }),
       });
 
@@ -101,6 +104,7 @@ export default function FormPage() {
       default: return day;
     }
   }
+
 
   return (
     <div className="main-wrapper">
@@ -255,6 +259,11 @@ export default function FormPage() {
               </div>
 
               <textarea placeholder="Votre message" value={message} onChange={(event) => setMessage(event.target.value)} required></textarea>
+
+              <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                onChange={(token) => setCaptchaToken(token)}
+              />
 
               <button type="submit" className="submit-btn">
                 {"ENVOYER"}

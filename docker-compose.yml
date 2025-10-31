@@ -29,6 +29,7 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}?schema=public
       - ALLOWED_ORIGINS=http://localhost:${CLIENT_PORT}
       - NODE_ENV=production
+      - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
     networks:
       - majordhom-network
     ports:
@@ -43,15 +44,18 @@ services:
       dockerfile: Dockerfile
       args:
         - NEXT_PUBLIC_API_URL=http://localhost:${API_PORT}
+        - NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
     restart: unless-stopped
     ports:
       - "${CLIENT_PORT}:3000"
     environment:
       - NODE_ENV=production
+      - NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY} 
     depends_on:
       - api
     networks:
       - majordhom-network
+
 
 volumes:
   majordhom-volume:
