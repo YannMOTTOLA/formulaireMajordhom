@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import "./homePage.css";
+import "./form.css";
 
 export default function FormPage() {
   const [gender, setGender] = useState<"MALE" | "FEMALE" | "">("");
