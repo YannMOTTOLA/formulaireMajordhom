@@ -9,40 +9,46 @@ describe("[POST] /api/contact/submit", () => {
     await resetDatabase();
   });
 
-  it("should create a contact, a message and an availability", async () => {
-    // ARRANGE
-    const BODY = {
-      gender: "MALE",
-      firstName: "Jean",
-      lastName: "Dupont",
-      email: "jean@example.com",
-      phone: "+33611111111",
-      message: "Je souhaite planifier une visite.",
-      topic: "VISIT",
-      day: "MONDAY",
-      hour: 10,
-      minute: 30,
-    };
+it("should create a contact, a message and an availability", async () => {
+  // ARRANGE
+  const BODY = {
+    gender: "MALE",
+    firstName: "Jean",
+    lastName: "Dupont",
+    email: "jean@example.com",
+    phone: "+33611111111",
+    message: "Je souhaite planifier une visite.",
+    topic: "VISIT",
+    availabilities: [
+      {
+        day: "MONDAY",
+        hour: 10,
+        minute: 30,
+      },
+    ],
+  };
 
-    // ACT
-    const { status, data } = await httpRequester.post("/contact/submit", BODY);
+  // ACT
+  const { status, data } = await httpRequester.post("/contact/submit", BODY);
 
-    // ASSERT
-    assert.equal(status, 201);
-    assert.ok(data.success);
-    assert.ok(data.contact.id);
-    assert.ok(data.message.id);
-    assert.ok(data.availability.id);
+  // ASSERT
+  assert.equal(status, 201);
+  assert.ok(data.success);
+  assert.ok(data.contact.id);
+  assert.ok(data.message.id);
 
-    const contactInDb = await prisma.contact.findUnique({
-      where: { id: data.contact.id },
-      include: { messages: true, availabilities: true },
-    });
+  assert.ok(Array.isArray(data.availabilities));
+  assert.ok(data.availabilities.length > 0);
 
-    assert.equal(contactInDb?.email, BODY.email);
-    assert.equal(contactInDb?.messages[0].message, BODY.message);
-    assert.equal(contactInDb?.availabilities[0].day, BODY.day);
+  const contactInDb = await prisma.contact.findUnique({
+    where: { id: data.contact.id },
+    include: { messages: true, availabilities: true },
   });
+
+  assert.equal(contactInDb?.email, BODY.email);
+  assert.equal(contactInDb?.messages[0].message, BODY.message);
+  assert.equal(contactInDb?.availabilities[0].day, BODY.availabilities[0].day);
+});
 
   it("should return 422 if email is invalid", async () => {
     const BODY = {
