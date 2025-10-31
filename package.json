@@ -1,0 +1,14 @@
+{
+  "name": "form-contact-majordhom",
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": [
+    "formulaire de contact"
+  ],
+  "author": "YannMOTTOLA",
+  "license": "ISC",
+  "scripts": {
+    "postinstall": "npm install --prefix api"
+  }
+}

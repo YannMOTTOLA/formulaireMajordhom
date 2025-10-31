@@ -1,0 +1,4 @@
+# Env de production
+.env.docker
+
+node_modules/

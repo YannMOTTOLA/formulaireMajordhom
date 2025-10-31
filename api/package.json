@@ -5,8 +5,8 @@
   "scripts": {
     "======= Pour la prod =======": "========================",
     "build": "tsc",
-    "start": "node --env-file=.env dist/index.js",
-    "docker:start": "npm run db:migrate:deploy && node dist/index.js",
+    "start": "node dist/index.js",
+    "docker:start": "npx prisma migrate deploy && node dist/index.js",
     "======= Pour le dev ========": "========================",
     "dev": "node --watch --env-file=.env index.ts",
     "lint": "eslint .",
@@ -31,6 +31,7 @@
   "dependencies": {
     "@prisma/client": "^6.18.0",
     "argon2": "^0.44.0",
+    "axios": "^1.13.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "helmet": "^8.1.0",

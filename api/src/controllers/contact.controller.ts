@@ -23,11 +23,13 @@ export async function getAllMessageByEmail(req: Request, res: Response) {
         throw new BadRequestError("email not valid");
     }
 
-    const contact = await prisma.contact.findMany({ where: email, include: { messages: true, } })
+    const existContact = await prisma.contact.findFirst({ where: email, include: { messages: true, } })
 
-    if (!contact) {
+    if (!existContact) {
         throw new NotFoundError("email not found");
     }
+
+    const contact = await prisma.contact.findMany({ where: email, include: { messages: true, } })
 
     res.json(contact);
 
