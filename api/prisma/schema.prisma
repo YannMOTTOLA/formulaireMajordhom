@@ -24,7 +24,6 @@ enum Days {
   SATURDAY
 }
 
-
 generator client {
   provider = "prisma-client"
   output   = "./generated/prisma"
@@ -35,33 +34,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(uuid(7))
-  gender    Gender   
-  firstName String
-  lastName  String
-  email     String
-  phone     String
-  createdAt DateTime @default(now())
+model Contact {
+  id             String         @id @default(uuid(7))
+  gender         Gender
+  firstName      String
+  lastName       String
+  email          String         
+  phone          String
+  createdAt      DateTime       @default(now())
   messages       Message[]
   availabilities Availability[]
 }
 
 model Message {
   id        String   @id @default(uuid(7))
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String
-  topic     Topic?    @default(VISIT)
-  message   String?   @db.Text @default("")
+  contact      Contact     @relation(fields: [contactId], references: [id])
+  contactId    String
+  topic     Topic?   @default(VISIT)
+  message   String?  @default("") @db.Text
   createdAt DateTime @default(now())
 }
 
 model Availability {
   id        String   @id @default(uuid(7))
   day       Days     @default(MONDAY)
-  hour     Int
-  minute   Int
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  hour      Int
+  minute    Int
+  contact      Contact?    @relation(fields: [contactId], references: [id])
+  contactId    String?
   createdAt DateTime @default(now())
 }

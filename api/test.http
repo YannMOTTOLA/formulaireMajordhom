@@ -1,1 +1,24 @@
 @baseUrl=http://localhost:3000/api
+
+### GET api/contact
+GET {{baseUrl}}/contact/
+
+### GET api/contact/:mail
+GET {{baseUrl}}/contact/yann.mottola@example.fr
+
+### POST api/contact/submit
+POST {{baseUrl}}/contact/submit
+Content-Type: application/json
+
+{
+    "gender": "MALE",
+    "firstName": "Lucy",
+    "lastName": "MOTTOLA",
+    "email": "yann.mottola@example.fr",
+    "phone": "+33612121212",
+    "message": "Bonjour, C'est un deuxième message message.",
+    "topic": "VISIT",
+    "day": "MONDAY",
+    "hour": 10,
+    "minute": 30
+}
