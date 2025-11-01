@@ -8,7 +8,7 @@ export async function globalErrorHandler(
   res: Response,
   next: NextFunction
 ) {
-  // 🧱 Erreurs de validation Zod
+  // Erreurs de validation Zod
   if (error instanceof ZodError) {
     const fieldMessages: Record<string, string> = {
       gender: "Veuillez sélectionner une civilité.",
@@ -37,7 +37,7 @@ export async function globalErrorHandler(
     });
   }
 
-  // 🧱 Erreurs HTTP personnalisées (BadRequestError, NotFoundError, etc.)
+  // Erreurs HTTP personnalisées (BadRequestError, NotFoundError, etc.)
   if (error instanceof HttpError) {
     return res.status(error.status).json({
       success: false,
@@ -45,7 +45,7 @@ export async function globalErrorHandler(
     });
   }
 
-  // 🧱 Erreurs non prévues (erreurs Prisma, réseau, etc.)
+  // Erreurs non prévues (erreurs Prisma, réseau, etc.)
   console.error("Unexpected error:", error);
   return res.status(500).json({
     success: false,

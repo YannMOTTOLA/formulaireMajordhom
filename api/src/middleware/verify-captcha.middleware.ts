@@ -3,7 +3,14 @@ import type { Request, Response, NextFunction } from "express";
 
 export const verifyCaptcha = async (req: Request, res: Response, next: NextFunction) => {
   try {
+
+    if (process.env.NODE_ENV === "test") {
+      return next();
+    }
+    
     const { captchaToken } = req.body;
+
+
 
     if (!captchaToken) {
       return res.status(400).json({ message: "Token manquant" });

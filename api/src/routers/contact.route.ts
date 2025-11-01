@@ -13,6 +13,6 @@ const contactLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// router.get("/contact", getAllMessage)
-// router.get("/contact/:email", getAllMessageByEmail)
+router.get("/contact", getAllMessage)
+router.get("/contact/:email", getAllMessageByEmail)
 router.post("/contact/submit", contactLimiter, verifyCaptcha, submitForm);

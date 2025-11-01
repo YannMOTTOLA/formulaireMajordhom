@@ -11,15 +11,15 @@ let server: Server;
 // BEFORE = Se lance 1 fois avant l'ensemble des tests
 before(() => {
   // (Hack) S'assurer qu'aucune BDD de test n'est préalablement lancée
-  execSync(`docker rm -f oquiztest 2>/dev/null || true`);  
+  execSync(`docker rm -f majordhomTest 2>/dev/null || true`);  
 
   execSync(`
     docker run \
-      --name oquiztest \
+      --name majordhomTest \
       -d \
-      -e POSTGRES_USER=oquiztest \
-      -e POSTGRES_PASSWORD=oquiztest \
-      -e POSTGRES_DB=oquiztest \
+      -e POSTGRES_USER=majordhomTest \
+      -e POSTGRES_PASSWORD=majordhomTest \
+      -e POSTGRES_DB=majordhomTest \
       -p 5437:5432 \
     postgres:18
   `);
@@ -51,7 +51,7 @@ after(async () => {
   await prisma.$disconnect();
 
   // Supprimer la BDD de test
-  execSync(`docker rm -f oquiztest`);
+  execSync(`docker rm -f majordhomTest`);
 });
 
 async function truncateTables() {
