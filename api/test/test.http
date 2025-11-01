@@ -16,13 +16,19 @@ Content-Type: application/json
   "lastName": "MOTTOLA",
   "email": "example@example.com",
   "phone": "+33612121212",
-  "message": "Bonjour, C'est un troisième message message.",
+  "message": "Bonjour, C'est un premier message message.",
   "topic": "VISIT",
   "availabilities": [
     {
       "day": "MONDAY",
       "hour": 10,
       "minute": 30
+    },
+    {
+      "day": "TUESDAY",
+      "hour": 10,
+      "minute": 30
     }
-  ]
+  ],
+  "token": ""
 }
