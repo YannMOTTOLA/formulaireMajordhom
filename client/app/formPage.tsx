@@ -43,7 +43,12 @@ export default function FormPage() {
       }
       const fullPhone = `${countryCode}${normalizedPhone}`;
 
-      const res = await fetch("http://localhost:3001/api/contact/submit", {
+      if (!captchaToken) {
+        setError("Veuillez valider le reCAPTCHA avant d’envoyer.");
+        return;
+      }
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
