@@ -82,4 +82,4 @@ Concernant Docker, je l’avais déjà utilisé pour déployer une API, mais ce 
 
 Ce projet est disponible en lecture publique à titre démonstratif.  
 Aucune réutilisation commerciale, redistribution ou modification du code n’est autorisée sans l’accord préalable de son auteur.  
-© 2025 Yann Mottola — Tous droits réservés.
+© 2025 Yann Mottola - Tous droits réservés.
