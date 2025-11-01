@@ -6,7 +6,7 @@ import { prisma, Gender } from "../src/models/index.ts";
 // Compteur pour générer des IDs uniques
 let fakeContactId = 0;
 
-// Génère un faux contact (style generateFakeUser)
+// Génère un faux contact 
 export function generateFakeContact(contact?: Partial<Contact>): Contact {
   fakeContactId++;
   return {
