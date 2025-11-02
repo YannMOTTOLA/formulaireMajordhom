@@ -255,7 +255,7 @@ export default function FormPage() {
                 </label>
                 <label className="labelTopic">
                   <input type="radio" value="CALLBACK" checked={topic === "CALLBACK"} onChange={(event) => setTopic(event.target.value as "CALLBACK")} />
-                  Être rappelé.event
+                  Être rappelé.e
                 </label>
                 <label className="labelTopic">
                   <input type="radio" value="PICTURES" checked={topic === "PICTURES"} onChange={(event) => setTopic(event.target.value as "PICTURES")} />
@@ -263,12 +263,16 @@ export default function FormPage() {
                 </label>
               </div>
 
-              <textarea placeholder="Votre message" value={message} onChange={(event) => setMessage(event.target.value)} required></textarea>
+              <div className="textareaContainer">
+                <textarea placeholder="Votre message" value={message} onChange={(event) => setMessage(event.target.value)} required></textarea>
+              </div>
 
-              <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-                onChange={(token) => setCaptchaToken(token)}
-              />
+              <div className="captcha">
+                <ReCAPTCHA
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                  onChange={(token) => setCaptchaToken(token)}
+                />
+              </div>
 
               <button type="submit" className="submit-btn">
                 {"ENVOYER"}

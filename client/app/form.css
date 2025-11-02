@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   height: 100%;
   margin: 0;
 }
@@ -16,22 +17,23 @@ body, html {
   color: white;
   font-family: "Arial", sans-serif;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  width: 95vw;
-  min-height: 85vh;
+  max-width: 75vw;
+  min-height: 75vh;
   display: block;
 }
 
 .contact-form {
   border-radius: 20px;
-  padding: 4vh 5vw;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   width: 100%;
   height: 100%;
+  padding: 1vh 3vw;
 }
 
 .contact-form h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .form-columns {
@@ -61,25 +63,30 @@ textarea {
   padding: 10px 12px;
   border-radius: 20px;
   border: none;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #333;
   background-color: white;
 }
 
 textarea {
-  height: 120px;
-  resize: none;
+  height: 18vh;
+}
+
+.captcha {
+  display: flex;
+  justify-content: center;
 }
 
 .radio-group {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .availability-group {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   flex-wrap: nowrap;
@@ -108,7 +115,7 @@ textarea {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   padding: 6px 10px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #fff;
   white-space: nowrap;
   width: auto;
@@ -122,7 +129,7 @@ textarea {
   font-weight: bold;
   cursor: pointer;
   margin-left: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -138,7 +145,8 @@ textarea {
   font-weight: bold;
   padding: 12px 40px;
   cursor: pointer;
-  align-self: flex-end;
+  align-self: center;
+  font-size: 1rem;
 }
 
 .phone-input {
@@ -152,6 +160,7 @@ textarea {
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 0.875rem;
 }
 
 .phone-input input {
@@ -159,27 +168,33 @@ textarea {
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 0.875rem;
 }
 
 .success {
   color: #3aff6b;
   margin-top: 10px;
+  font-size: 0.875rem;
 }
 
 .error {
   color: #ff3b3b;
   margin-top: 10px;
+  font-size: 0.875rem; 
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   background-color: white;
 }
 
-.labelTopic, .labelGender {
+.labelTopic,
+.labelGender {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  font-size: 115%;
+  font-size: 1rem;
   gap: 1vw;
 }
 
@@ -187,45 +202,7 @@ h3 {
   font-weight: bold;
   padding-top: 3%;
   padding-bottom: 3%;
-}
-
-/* --- Tablette --- */
-@media (max-width: 1023px) {
-  .form-container {
-    width: 90vw;
-    height: auto;
-    min-height: 80vh;
-  }
-
-  .contact-form {
-    padding: 5vh 6vw;
-  }
-
-  .form-columns {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .left-column,
-  .right-column {
-    flex: 1 1 100%;
-  }
-
-  .availability-group {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .availability-item {
-    width: auto;
-    min-width: 180px;
-  }
-
-  .submit-btn {
-    align-self: center;
-    width: fit-content;
-  }
+  font-size: 1rem;
 }
 
 /* --- Desktop --- */
@@ -236,7 +213,11 @@ h3 {
   }
 
   .contact-form h2 {
-    font-size: 28px;
+    font-size: 1.75rem;
+  }
+
+  .contact-form {
+    padding: 4vh 5vw;
   }
 
   .form-columns {
@@ -251,11 +232,25 @@ h3 {
   }
 
   .availability-group {
+    flex-direction: row;
     justify-content: flex-start;
     gap: 10px;
   }
 
   .availability-item {
     width: 20vw;
+  }
+
+  .labelTopic {
+    font-size: 0.9rem;
+  }
+
+  .submit-btn {
+    align-self: flex-end;
+  }
+
+  .captcha {
+    justify-content: initial;
+    margin: initial;
   }
 }
